@@ -1,41 +1,64 @@
 import React, { useState } from "react";
 import axios from "axios";
+import VehicleDetails from "./VehicleDetails";
+
+// ... (import statements)
 
 const DisabilityCheck = () => {
   const [inputValue, setInputValue] = useState("");
-  const [data, setData] = useState(null); // Initialize with null
+  const [data, setData] = useState(null);
+  const [details, setDetails] = useState("");
+  const [color, setColor] = useState("");
 
-  // Event handler to update the state when the input changes
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
 
-  // Event handler to make API request and update the state
   const hendelData = async () => {
     try {
-      // Make an API request using axios
       const response = await axios.get(
         `https://data.gov.il/api/3/action/datastore_search?resource_id=c8b9f9c8-4612-4068-934f-d4acd2e3c06e&q=${inputValue}`
       );
-      // console.log(response);
-      // console.log(response.data.result.records.length);
-      // console.log(response.data.result.records[0]["TAARICH HAFAKAT TAG"]);
-      disabilityCheck(response) ? setData("true") : setData("false");
-      // Update the state with the API response data
+
+      if (response.data.result.records.length > 0) {
+        setData("disabled");
+        setColor("text-success");
+      } else {
+        setData("non-disabled");
+        setColor("text-danger");
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
       // Handle errors as needed
+      // setData(false); // Set data to false in case of an error
     }
   };
 
-  const disabilityCheck = (response) => {
-    return response.data.result.records.length;
+  const hendelDetail = async () => {
+    try {
+      const detailsCar = await axios.get(
+        `https://data.gov.il/api/3/action/datastore_search?resource_id=053cea08-09bc-40ec-8f7a-156f0677aff3&q=${inputValue}`
+      );
+
+      setDetails(detailsCar.data.result.records);
+      console.log(detailsCar.data.result.records);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setDetails([]); // Set details to an empty array in case of an error
+    }
   };
+
+  const hendelClick = () => {
+    hendelData();
+    hendelDetail();
+  };
+  console.log(details);
+
   return (
     <div className="container text-center d-flex justify-content-center align-items-center flex-column">
       <h2 className="text-info-emphasis">Parking ticket for the disabled</h2>
       <p className="text-info-emphasis">
-        Is there a handicap parking ticket for this?
+        Is there a handicap parking ticket for this car?
       </p>
 
       <div>
@@ -45,12 +68,10 @@ const DisabilityCheck = () => {
           value={inputValue}
           onChange={handleInputChange}
         />
-        <button onClick={hendelData}>Check</button>
+        <button onClick={hendelClick}>Check</button>
       </div>
-      <h2>{data}</h2>
-
-      {/* Display the API response data
-    {data && <pre>{JSON.stringify(data, null, 2)}</pre>} */}
+      <h2 className={color}>{data}</h2>
+      <VehicleDetails vehicleDetails={details} />
     </div>
   );
 };
