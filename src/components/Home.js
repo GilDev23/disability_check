@@ -46,13 +46,13 @@ const Home = () => {
       {/* Input element with value and onChange attributes */}
       <input
         id="inputId"
-        placeholder="Enter your event"
+        placeholder="Enter license plate number"
         value={inputValue}
         onChange={handleInputChange}
       />
 
       {/* Button to trigger the API request */}
-      <button onClick={hendelData}>Fetch Data</button>
+      <button onClick={hendelData}>Check</button>
       <h2>{data}</h2>
 
       {/* Display the API response data
