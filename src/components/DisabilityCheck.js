@@ -48,14 +48,15 @@ const DisabilityCheck = () => {
     }
   };
 
-  const hendelClick = () => {
-    hendelData();
+  const hendelClick = async () => {
+    await hendelData();
     hendelDetail();
   };
+
   console.log(details);
 
   return (
-    <div className="container text-center d-flex justify-content-center align-items-center flex-column">
+    <div className="container text-center d-flex justify-content-center align-items-center flex-column p-3">
       <h2 className="text-info-emphasis">Parking ticket for the disabled</h2>
       <p className="text-info-emphasis">
         Is there a handicap parking ticket for this car?

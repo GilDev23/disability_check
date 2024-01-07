@@ -13,13 +13,13 @@ const VehicleDetails = ({ vehicleDetails }) => {
             <strong>baalut:</strong> {vehicleDetails[0].baalut}
           </li>
           <li>
-            <strong>Tzeva rechev:</strong> {vehicleDetails[0].tzeva_rechev}
-          </li>
-          <li>
             <strong>Tozeret Name:</strong> {vehicleDetails[0].tozeret_nm}
           </li>
           <li>
             <strong>kinuy mishari:</strong> {vehicleDetails[0].kinuy_mishari}
+          </li>
+          <li>
+            <strong>Tzeva rechev:</strong> {vehicleDetails[0].tzeva_rechev}
           </li>
         </ol>
       ) : (

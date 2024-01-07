@@ -20,8 +20,13 @@ const Nav = () => {
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link active text-light" href="#">
+              <a className="nav-link active text-light" href="ownershiphistory">
                 Ownership History
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link active text-light" href="carhistory">
+                Car History
               </a>
             </li>
           </ul>
